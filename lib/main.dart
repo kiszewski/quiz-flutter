@@ -10,6 +10,13 @@ class PerguntasApp extends StatelessWidget {
     'Qual seu animal favorito?'
   ];
 
+  var perguntaAtual = 0;
+
+  void responder() {
+    perguntaAtual++;
+    print(perguntaAtual);
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -22,13 +29,13 @@ class PerguntasApp extends StatelessWidget {
             Text(perguntas[0]),
             RaisedButton(
               child: Text('Resposta 1'),
-              onPressed: null,),
+              onPressed: responder,), //passando a função como parametro, não a chamada dessa função
             RaisedButton(
               child: Text('Resposta 2'),
-              onPressed: null,),
+              onPressed: responder,),
             RaisedButton(
               child: Text('Resposta 3'),
-              onPressed: null,),
+              onPressed: responder,),
           ]),
         ),
       ),
