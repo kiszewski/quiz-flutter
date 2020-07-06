@@ -3,21 +3,22 @@ import 'package:flutter/widgets.dart';
 
 main() => runApp(PerguntasApp());
 
-class PerguntasState extends State<PerguntasApp> {
-  final perguntas = ['Qual sua cor favorita?', 'Qual seu animal favorito?'];
+class _PerguntaAppState extends State<PerguntasApp> {
 
-  var perguntaAtual = 0;
+  var _perguntaAtual = 0;
 
-  void responder() {
+  void _responder() {
     setState(() {
       //Qualquer alteração de estado precisa ser feita dentro desse metodo, 
       //de forma reativa ele ira atualizar a interface grafica
-      perguntaAtual++;  
+      _perguntaAtual++;  
     });
-    print(perguntaAtual);
+    print(_perguntaAtual);
   }
 
   Widget build(BuildContext context) {
+    final perguntas = ['Qual sua cor favorita?', 'Qual seu animal favorito?'];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -25,18 +26,18 @@ class PerguntasState extends State<PerguntasApp> {
         ),
         body: Center(
           child: Column(children: <Widget>[
-            Text(perguntas[perguntaAtual]),
+            Text(perguntas[_perguntaAtual]),
             RaisedButton(
               child: Text('Resposta 1'),
-              onPressed: responder, //passando a função como parametro, não a chamada dessa função
+              onPressed: _responder, //passando a função como parametro, não a chamada dessa função
             ),
             RaisedButton(
               child: Text('Resposta 2'),
-              onPressed: responder,
+              onPressed: _responder,
             ),
             RaisedButton(
               child: Text('Resposta 3'),
-              onPressed: responder,
+              onPressed: _responder,
             ),
           ]),
         ),
@@ -47,7 +48,7 @@ class PerguntasState extends State<PerguntasApp> {
 
 class PerguntasApp extends StatefulWidget {
   @override
-  PerguntasState createState() {
-    return PerguntasState();
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
