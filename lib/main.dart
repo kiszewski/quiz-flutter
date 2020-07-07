@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import './questao.dart';
-import './botao.dart';
+import 'questao.dart';
+import 'resposta.dart';
 
 main() => runApp(PerguntasApp());
 
@@ -18,7 +18,13 @@ class _PerguntaAppState extends State<PerguntasApp> {
   }
 
   Widget build(BuildContext context) {
-    final perguntas = ['Qual sua cor favorita?', 'Qual seu animal favorito?'];
+    final perguntas = [
+      'Qual sua cor favorita?',
+      'Qual seu animal favorito?',
+      'Qual seu time favorito?',
+      'Qual sua comida favorito?',
+      'Qual seu jogo favorito?'
+      ];
 
     return MaterialApp(
       home: Scaffold(
@@ -28,13 +34,9 @@ class _PerguntaAppState extends State<PerguntasApp> {
         body: Center(
           child: Column(children: <Widget>[
             Questao(perguntas[_perguntaAtual]),
-            RaisedButton(
-              child: Text('Resposta 1'),
-              onPressed:
-                  _responder, //passando a função como parametro, não a chamada dessa função
-            ),
-            Botao('Resposta 2', _responder),
-            Botao('Resposta 3', _responder),
+            Resposta('Resposta 1', _responder),
+            Resposta('Resposta 2', _responder),
+            Resposta('Resposta 3', _responder),
           ]),
         ),
       ),
