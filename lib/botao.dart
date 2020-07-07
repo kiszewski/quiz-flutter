@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Botao extends StatelessWidget {
   final String texto;
-  final cb;
+  final void Function() cb;
 
   Botao(this.texto, this.cb);
 
