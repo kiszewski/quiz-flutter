@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import './questao.dart';
+import './botao.dart';
 
 main() => runApp(PerguntasApp());
 
 class _PerguntaAppState extends State<PerguntasApp> {
-
   var _perguntaAtual = 0;
 
   void _responder() {
     setState(() {
-      //Qualquer alteração de estado precisa ser feita dentro desse metodo, 
+      //Qualquer alteração de estado precisa ser feita dentro desse metodo,
       //de forma reativa ele ira atualizar a interface grafica
-      _perguntaAtual++;  
+      _perguntaAtual++;
     });
     print(_perguntaAtual);
   }
@@ -26,19 +27,14 @@ class _PerguntaAppState extends State<PerguntasApp> {
         ),
         body: Center(
           child: Column(children: <Widget>[
-            Text(perguntas[_perguntaAtual]),
+            Questao(perguntas[_perguntaAtual]),
             RaisedButton(
               child: Text('Resposta 1'),
-              onPressed: _responder, //passando a função como parametro, não a chamada dessa função
+              onPressed:
+                  _responder, //passando a função como parametro, não a chamada dessa função
             ),
-            RaisedButton(
-              child: Text('Resposta 2'),
-              onPressed: _responder,
-            ),
-            RaisedButton(
-              child: Text('Resposta 3'),
-              onPressed: _responder,
-            ),
+            Botao('Resposta 2', _responder),
+            Botao('Resposta 3', _responder),
           ]),
         ),
       ),
