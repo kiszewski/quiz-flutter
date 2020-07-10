@@ -2,29 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'questao.dart';
 import 'resposta.dart';
+import 'resultado.dart';
 
 main() => runApp(PerguntasApp());
 
 class _PerguntaAppState extends State<PerguntasApp> {
+  static final List<Map<String, dynamic>> _perguntas = [
+    {
+      'pergunta': 'Qual sua cor favorita?',
+      'respostas': ['Amarelo', 'Azul', 'Verde']
+    },
+    {
+      'pergunta': 'Qual seu animal favorito?',
+      'respostas': ['Gato', 'Cachorro', 'Coelho']
+    },
+    {
+      'pergunta': 'Qual seu time favorito?',
+      'respostas': ['Real Madrid', 'Chelsea', 'Inter']
+    },
+    {
+      'pergunta': 'Qual sua comida favorito?',
+      'respostas': ['Batata frita', 'Arroz', 'Pastel']
+    },
+    {
+      'pergunta': 'Qual seu jogo favorito?',
+      'respostas': ['Overwatch', 'Fortnite', 'Fifa']
+    },
+  ];
   var _perguntaAtual = 0;
 
   void _responder() {
-    setState(() {
-      //Qualquer alteração de estado precisa ser feita dentro desse metodo,
-      //de forma reativa ele ira atualizar a interface grafica
-      _perguntaAtual++;
-    });
     print(_perguntaAtual);
+    if (existePerguntaSelecionada) {
+      setState(() {
+        //Qualquer alteração de estado precisa ser feita dentro desse metodo,
+        //de forma reativa ele ira atualizar a interface grafica
+        _perguntaAtual++;
+      });
+    }
+  }
+
+  bool get existePerguntaSelecionada {
+    return _perguntaAtual < _perguntas.length;
   }
 
   Widget build(BuildContext context) {
-    final perguntas = [
-      'Qual sua cor favorita?',
-      'Qual seu animal favorito?',
-      'Qual seu time favorito?',
-      'Qual sua comida favorito?',
-      'Qual seu jogo favorito?'
-      ];
+    final List<String> respostas = existePerguntaSelecionada
+      ? _perguntas[_perguntaAtual]['respostas']
+      : null;
 
     return MaterialApp(
       home: Scaffold(
@@ -32,12 +57,10 @@ class _PerguntaAppState extends State<PerguntasApp> {
           title: Text('Perguntas'),
         ),
         body: Center(
-          child: Column(children: <Widget>[
-            Questao(perguntas[_perguntaAtual]),
-            Resposta('Resposta 1', _responder),
-            Resposta('Resposta 2', _responder),
-            Resposta('Resposta 3', _responder),
-          ]),
+          child: existePerguntaSelecionada ? Column(children: <Widget>[
+            Questao(_perguntas[_perguntaAtual]['pergunta']),
+            ...respostas.map((resp) => Resposta(resp, _responder)).toList()
+          ]) : Resultado(),
         ),
       ),
     );
