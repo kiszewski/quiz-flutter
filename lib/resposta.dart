@@ -9,7 +9,12 @@ class Resposta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(50),
+      decoration: BoxDecoration(
+        color: Colors.yellow,
+        shape: BoxShape.circle,
+        // borderRadius: BorderRadius.all(Radius.circular(50))
+      ),
       child: RaisedButton(
         color: Colors.blue[400],
         textColor: Colors.white,

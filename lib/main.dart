@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'questao.dart';
-import 'resposta.dart';
 import 'resultado.dart';
+import 'questionario.dart';
 
 main() => runApp(PerguntasApp());
 
@@ -10,23 +9,43 @@ class _PerguntaAppState extends State<PerguntasApp> {
   static final List<Map<String, dynamic>> _perguntas = [
     {
       'pergunta': 'Qual sua cor favorita?',
-      'respostas': ['Amarelo', 'Azul', 'Verde']
+      'respostas': [
+        {'texto': 'Amarelo', 'peso': 10},
+        {'texto': 'Azul', 'peso': 10},
+        {'texto': 'Verde', 'peso': 10}
+      ]
     },
     {
       'pergunta': 'Qual seu animal favorito?',
-      'respostas': ['Gato', 'Cachorro', 'Coelho']
+      'respostas': [
+        {'texto': 'Gato', 'peso': 10},
+        {'texto': 'Cachorro', 'peso': 10},
+        {'texto': 'Coelho', 'peso': 10}
+      ]
     },
     {
       'pergunta': 'Qual seu time favorito?',
-      'respostas': ['Real Madrid', 'Chelsea', 'Inter']
+      'respostas': [
+        {'texto': 'RealMadrid', 'peso': 10},
+        {'texto': 'Chelsea', 'peso': 10},
+        {'texto': 'Inter', 'peso': 10}
+      ]
     },
     {
       'pergunta': 'Qual sua comida favorito?',
-      'respostas': ['Batata frita', 'Arroz', 'Pastel']
+      'respostas': [
+        {'texto': 'Batatafrita', 'peso': 10},
+        {'texto': 'Arroz', 'peso': 10},
+        {'texto': 'Pastel', 'peso': 10}
+      ]
     },
     {
       'pergunta': 'Qual seu jogo favorito?',
-      'respostas': ['Overwatch', 'Fortnite', 'Fifa']
+      'respostas': [
+        {'texto': 'Overwatch', 'peso': 10},
+        {'texto': 'Fortnite', 'peso': 10},
+        {'texto': 'Fifa', 'peso': 10}
+      ]
     },
   ];
   var _perguntaAtual = 0;
@@ -42,25 +61,42 @@ class _PerguntaAppState extends State<PerguntasApp> {
     }
   }
 
+  void _restaurarPerguntas() {
+    setState(() {
+      _perguntaAtual = 0;
+    });
+  }
+
   bool get existePerguntaSelecionada {
     return _perguntaAtual < _perguntas.length;
   }
 
   Widget build(BuildContext context) {
-    final List<String> respostas = existePerguntaSelecionada
-      ? _perguntas[_perguntaAtual]['respostas']
-      : null;
+    final List<Map<String, Object>> respostas = existePerguntaSelecionada
+        ? _perguntas[_perguntaAtual]['respostas']
+        : null;
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
+          actions: existePerguntaSelecionada
+              ? null
+              : <Widget>[
+                  RaisedButton(
+                      child: Icon(Icons.restore),
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      onPressed: _restaurarPerguntas)
+                ],
         ),
         body: Center(
-          child: existePerguntaSelecionada ? Column(children: <Widget>[
-            Questao(_perguntas[_perguntaAtual]['pergunta']),
-            ...respostas.map((resp) => Resposta(resp, _responder)).toList()
-          ]) : Resultado(),
+          child: existePerguntaSelecionada
+              ? Questionario(
+                  pergunta: _perguntas[_perguntaAtual]['pergunta'],
+                  respostas: respostas,
+                  responder: _responder)
+              : Resultado(),
         ),
       ),
     );
