@@ -10,53 +10,55 @@ class _PerguntaAppState extends State<PerguntasApp> {
     {
       'pergunta': 'Qual sua cor favorita?',
       'respostas': [
-        {'texto': 'Amarelo', 'peso': 10},
-        {'texto': 'Azul', 'peso': 10},
-        {'texto': 'Verde', 'peso': 10}
+        {'texto': 'Amarelo', 'pontuacao': 10},
+        {'texto': 'Azul', 'pontuacao': 5},
+        {'texto': 'Verde', 'pontuacao': 1}
       ]
     },
     {
       'pergunta': 'Qual seu animal favorito?',
       'respostas': [
-        {'texto': 'Gato', 'peso': 10},
-        {'texto': 'Cachorro', 'peso': 10},
-        {'texto': 'Coelho', 'peso': 10}
+        {'texto': 'Gato', 'pontuacao': 8},
+        {'texto': 'Cachorro', 'pontuacao': 7},
+        {'texto': 'Coelho', 'pontuacao': 2}
       ]
     },
     {
       'pergunta': 'Qual seu time favorito?',
       'respostas': [
-        {'texto': 'RealMadrid', 'peso': 10},
-        {'texto': 'Chelsea', 'peso': 10},
-        {'texto': 'Inter', 'peso': 10}
+        {'texto': 'Real Madrid', 'pontuacao': 5},
+        {'texto': 'Chelsea', 'pontuacao': 3},
+        {'texto': 'Inter', 'pontuacao': 7}
       ]
     },
     {
       'pergunta': 'Qual sua comida favorito?',
       'respostas': [
-        {'texto': 'Batatafrita', 'peso': 10},
-        {'texto': 'Arroz', 'peso': 10},
-        {'texto': 'Pastel', 'peso': 10}
+        {'texto': 'Batata frita', 'pontuacao': 8},
+        {'texto': 'Arroz', 'pontuacao': 2},
+        {'texto': 'Pastel', 'pontuacao': 5}
       ]
     },
     {
       'pergunta': 'Qual seu jogo favorito?',
       'respostas': [
-        {'texto': 'Overwatch', 'peso': 10},
-        {'texto': 'Fortnite', 'peso': 10},
-        {'texto': 'Fifa', 'peso': 10}
+        {'texto': 'Overwatch', 'pontuacao': 6},
+        {'texto': 'Fortnite', 'pontuacao': 9},
+        {'texto': 'Fifa', 'pontuacao': 8}
       ]
     },
   ];
   var _perguntaAtual = 0;
+  var _pontuacaoAtual = 0;
 
-  void _responder() {
-    print(_perguntaAtual);
+  void _responder(int pontuacao) {
     if (existePerguntaSelecionada) {
       setState(() {
         //Qualquer alteração de estado precisa ser feita dentro desse metodo,
         //de forma reativa ele ira atualizar a interface grafica
         _perguntaAtual++;
+        _pontuacaoAtual += pontuacao;
+        print(_pontuacaoAtual);
       });
     }
   }
@@ -64,6 +66,7 @@ class _PerguntaAppState extends State<PerguntasApp> {
   void _restaurarPerguntas() {
     setState(() {
       _perguntaAtual = 0;
+      _pontuacaoAtual = 0;
     });
   }
 
@@ -96,7 +99,7 @@ class _PerguntaAppState extends State<PerguntasApp> {
                   pergunta: _perguntas[_perguntaAtual]['pergunta'],
                   respostas: respostas,
                   responder: _responder)
-              : Resultado(),
+              : Resultado(_pontuacaoAtual),
         ),
       ),
     );
