@@ -7,12 +7,9 @@ class Resultado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        'Parabéns, nota: $_pontuacaoFinal',
-        style: TextStyle(
-          fontSize: 35
-        ))
-    );
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+      Text('Parabéns!', style: TextStyle(fontSize: 35, )),
+      Text('Nota final: $_pontuacaoFinal/50', style: TextStyle(fontSize: 30))
+    ]);
   }
 }

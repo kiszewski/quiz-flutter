@@ -58,7 +58,6 @@ class _PerguntaAppState extends State<PerguntasApp> {
         //de forma reativa ele ira atualizar a interface grafica
         _perguntaAtual++;
         _pontuacaoAtual += pontuacao;
-        print(_pontuacaoAtual);
       });
     }
   }
